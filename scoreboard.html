@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<p>SIMPIC Second Round Scoreboard<p>
+	
+	<link rel="stylesheet" href="./bootstrap.min.css">
+<script src="./bootstrap.min.js"></script>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+		.progress-bar {
+			width: 0%;
+		}
+	</style>
+</head>
+<body>
+	<div class="container">
+			Round counter 
+			<span id="counter">0</span>  
+			<br>
+			<!--<span class="form-group">
+			<input type="text" id="team1"></span>
+			<span id="score1">0</span>  
+			<br>
+			<span class="form-group">
+			<input type="text" id="team2"></span>
+			<span id="score2">0</span> 
+			
+			<br>
+			<span class="form-group">
+			<input type="text" id="team3"></span>
+			<span id="score3">0</span>  
+			<br>
+			<span class="form-group">
+			<input type="text" id="team4"></span>
+			<span id="score4">0</span>  
+			<br>
+			<span class="form-group">
+			<input type="text" id="team5"></span>
+			<span id="score5">0</span>  
+			
+			<br>
+			<span class="form-group">
+			<input type="text" id="team6"></span>
+			<span id="score6">0</span>  
+			
+			<br>
+			<span class="form-group">
+			<input type="text" id="team7"></span>
+			<span id="score7">0</span>  
+			<br>
+			<button type="button" class="btn btn-dark" id="submit">Submit</button>
+			<button type="button" class="btn btn-dark" id="clear">Clear</button>
+-->
+			
+		
+	</div>
+	<br>
+	<div class="container">
+		<span id="score1">0</span> 
+		<div class="progress" style="height: 50px;">
+			 <div class="progress-bar" id="prog1" role="progress-bar" aria-valuenow="0" aria-valuemin="0" arai-valuemax="100"></div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<span id="score2">0</span> 
+		<div class="progress" style="height: 50px;">
+			 <div class="progress-bar" id="prog2" role="progress-bar" aria-valuenow="0" aria-valuemin="0" arai-valuemax="100"></div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<span id="score3">0</span> 
+		<div class="progress" style="height: 50px;">
+			 <div class="progress-bar" id="prog3" role="progress-bar" aria-valuenow="0" aria-valuemin="0" arai-valuemax="100"></div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<span id="score4">0</span> 
+		<div class="progress" style="height: 50px;">
+			 <div class="progress-bar" id="prog4" role="progress-bar" aria-valuenow="0" aria-valuemin="0" arai-valuemax="100"></div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<span id="score5">0</span> 
+		<div class="progress" style="height: 50px;">
+			 <div class="progress-bar" id="prog5" role="progress-bar" aria-valuenow="0" aria-valuemin="0" arai-valuemax="100"></div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<span id="score6">0</span> 
+		<div class="progress" style="height: 50px;">
+			 <div class="progress-bar" id="prog6" role="progress-bar" aria-valuenow="0" aria-valuemin="0" arai-valuemax="100"></div>
+		</div>
+	</div>
+	<br>
+	<div class="container">
+		<span id="score7">0</span> 
+		<div class="progress" style="height: 50px;">
+			 <div class="progress-bar" id="prog7" role="progress-bar" aria-valuenow="0" aria-valuemin="0" arai-valuemax="100"></div>
+		</div>
+	</div>
+<!--
+	<div class="container">
+		<div class="row" style="height:600px;">
+			<div class="col-md" style="background: #f44242">
+				<h3 id="scoresec1" style="position : absolute; bottom : 0;left: 50%;">0</h3>
+			</div>
+			<div class="col-md" style="background: #92f442">
+				<h3 id="scoresec2" style="position : absolute; bottom : 0; left: 50%">0</h3>
+			</div>
+			<div class="col-md" style="background: #42aaf4">
+				<h3 id="scoresec3" style="position : absolute; bottom : 0; left: 50%">0</h3>
+			</div>
+			<div class="col-md" style="background: #bf42f4">
+				<h3 id="scoresec4" style="position : absolute; bottom : 0; left: 50%">0</h3>
+			</div>
+			<div class="col-md" style="background: #f442ad">
+				<h3 id="scoresec5" style="position : absolute; bottom : 0; left: 50%">0</h3>
+			</div>
+		</div>
+	</div>
+-->
+<script src="./socket.io.js"></script>
+	<script src="./jquery-3.2.1.min.js"></script>
+	<script src="./scoreboard.js"></script>
+	<script >
+
+	/*	$(document).on('ready',function(){
+			$('.progress .progress-bar').css("width",function(){
+				return $(this).attr("aria-valuenow") + "%";
+			})
+		}) */
+		(function(){
+			var element = function(id){
+				return document.getElementById(id);
+			}
+			var submit= element('submit');
+			var clear = element('clear');
+			var team=[];
+			team.push(0);
+			for(var i=1;i<8;i++){
+				team.push(element('team'+i));
+			}
+			var score=[];
+			score.push(0);
+			for(var i=1;i<8;i++){
+				score.push(element('score'+i));
+			}
+
+			var upd = function(name, val){
+				$('#'+name).css('width',val+'%').attr('aria-valuenow'+val);
+			}
+
+			var socket = io();
+
+			
+			if(socket !== undefined){
+				console.log('Connected');
+			};
+			socket.on('score',function(data){
+				console.log('working');
+				if(data[	0]!=0){
+					for(var i=1;i<8;i++){
+						//var tmp = parseInt(score[i].innerText)+data[i];	
+						//score[i].innerText = tmp;
+						score[i].innerText = data[i];
+					}
+					counter.innerText = data[0];
+					for(var i=1;i<8;i++) {
+						upd('prog'+i,data[i]/3);
+						if(data[i]==-1) $('#prog'+1).addClass("bg-secondary");
+					}
+					for(var i=1;i<6;i++) $('#scoresec'+i).text(data[i]);
+				}
+			});
+			socket.on('cleared',function(data){
+				counter.innerText=0;
+				for(var i=1;i<8;i++){
+					score[i].innerText = data[i];
+					$('#prog'+i).removeClass('bg-secondary');
+					upd('prog'+i,0);
+				}
+			});
+			$(document).ready(function(){
+				$("#submit").click(function(){
+					var sendScore=[];
+					sendScore.push(0);
+					for(var i=1;i<8;i++){
+						if(parseInt(score[i].innerText) == -1) {
+							sendScore[i]=0;
+							$('#prog'+i).addClass("bg-secondary");
+						}
+						sendScore.push(parseInt(team[i].value));
+					}
+					socket.emit('update',sendScore);
+				});
+				$("#clear").click(function(){
+					socket.emit('clear',1);
+				})
+			});
+			// submit.addEventListener('click', function(){
+			// 	var sendScore=[];
+			// 	sendScore.push(0);
+			// 	for(var i=1;i<8;i++){
+			// 		sendScore.push(parseInt(team[i].value));
+			// 	}
+			// 	socket.emit('update',sendScore);
+			// });
+			// clear.addEventListener('click', function() {
+			// 	socket.emit('clear',1);
+			// })
+		})();
+
+		
+	</script>
+</body>

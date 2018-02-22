@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<p>SIMPIC Second Round console<p>
+	<link rel="stylesheet" href="./bootstrap.min.css">
+<script src="./bootstrap.min.js"></script>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+	<div class="container">
+			Round counter 
+			<span id="counter">0</span>  
+			<br>
+			<span id="score1">0</span>
+			<button type="button" class="btn btn-blue" id="change01">0</button>
+			<button type="button" class="btn btn-blue" id="change11">3</button>
+			<button type="button" class="btn btn-blue" id="change21">2</button>
+			<button type="button" class="btn btn-blue" id="change31">-1</button>
+			<br>
+			<span id="score2">0</span>
+			<button type="button" class="btn btn-blue" id="change02">0</button>
+			<button type="button" class="btn btn-blue" id="change12">3</button>
+			<button type="button" class="btn btn-blue" id="change22">2</button>
+			<button type="button" class="btn btn-blue" id="change32">-1</button>
+			<br>
+			<span id="score3">0</span>
+			<button type="button" class="btn btn-blue" id="change03">0</button>
+			<button type="button" class="btn btn-blue" id="change13">3</button>
+			<button type="button" class="btn btn-blue" id="change23">2</button>
+			<button type="button" class="btn btn-blue" id="change33">-1</button>
+			<br>
+			<span id="score4">0</span>
+			<button type="button" class="btn btn-blue" id="change04">0</button>
+			<button type="button" class="btn btn-blue" id="change14">3</button>
+			<button type="button" class="btn btn-blue" id="change24">2</button>
+			<button type="button" class="btn btn-blue" id="change34">-1</button>
+			<br>
+			<span id="score5">0</span>
+			<button type="button" class="btn btn-blue" id="change05">0</button>
+			<button type="button" class="btn btn-blue" id="change15">3</button>
+			<button type="button" class="btn btn-blue" id="change25">2</button>
+			<button type="button" class="btn btn-blue" id="change35">-1</button>
+			<br>
+			<button type="button" class="btn btn-dark" id="clear">Clear</button>
+	</div>
+<script src="./socket.io.js"></script>
+	<script src="./jquery-3.2.1.min.js"></script>
+	<script >
+		(function(){
+			
+			var socket = io();
+
+			if(socket !== undefined){
+				console.log('Connected');
+			};
+			socket.on('result',function(i,data){
+				$('#score'+i).text(data);
+			});
+			socket.on('cleared2',function(data){
+				for(var i=1;i<6;i++){
+					$('#score'+i).text('0');
+				}
+			});
+			var check1=[0,0,0,0,0,0,0,0];
+			var check2=[0,0,0,0,0,0,0,0];
+			var check3=[0,0,0,0,0,0,0,0];
+			$(document).ready(function(){
+				$('#clear').click(function(){
+					socket.emit('clear2',1);
+				});
+				$("button[id*='change0']").each(function(index){
+					$(this).click(function(){
+					var str = $(this).attr("id");
+					var i = str.substr(7);
+					console.log(i);
+					socket.emit('semi',i,0);	
+				});
+				});
+				
+				$("button[id*='change1']").each(function(index){
+					check1[index+1]++;
+					console.log(check1[index+1]);
+					if(check1[index+1]==1){
+						$(this).click(function(){
+							console.log(this);
+							console.log(check1[index+1]);
+							console.log(index+1);
+							var str = $(this).attr("id");
+							var i = str.substr(7);
+							console.log(i);
+							socket.emit('semi',i,3);	
+						});
+					}
+				});
+				$("button[id*='change2']").each(function(index){
+					check2[index+1]++;
+					console.log(check2[index+1]);
+					if(check2[index+1]==1){
+						$(this).click(function(){
+							console.log(this);
+							console.log(check2[index+1]);
+							console.log(index+1);
+							var str = $(this).attr("id");
+							var i = str.substr(7);
+							console.log(i);
+							socket.emit('semi',i,2);	
+						});
+					}
+				});
+				$("button[id*='change3']").each(function(index){
+					check3[index+1]++;
+					console.log(check3[index+1]);
+					if(check3[index+1]==1){
+						$(this).click(function(){
+							console.log(this);
+							console.log(check3[index+1]);
+							console.log(index+1);
+							var str = $(this).attr("id");
+							var i = str.substr(7);
+							console.log(i);
+							socket.emit('semi',i,-1);	
+						});
+					}
+				});
+			});
+			})();
+	</script>
+</body>
