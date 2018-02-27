@@ -173,7 +173,7 @@
 					counter.innerText = data[0];
 					for(var i=1;i<8;i++) {
 						upd('prog'+i,data[i]/3);
-						if(data[i]==-1) $('#prog'+1).addClass("bg-secondary");
+						if(data[i]==-1) $('#prog'+i).addClass("bg-secondary");
 					}
 					for(var i=1;i<6;i++) $('#scoresec'+i).text(data[i]);
 				}

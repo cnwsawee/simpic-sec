@@ -3,7 +3,7 @@
 <head>
 	<p>SIMPIC Second Round console<p>
 	<link rel="stylesheet" href="./bootstrap.min.css">
-<script src="./bootstrap.min.js""></script>
+	<script src="./bootstrap.min.js""></script>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 </head>
@@ -59,14 +59,13 @@
 			<button type="button" class="btn btn-dark" id="submit">Submit</button>
 			<button type="button" class="btn btn-dark" id="clear">Clear</button>
 	</div>
-<script src="./socket.io.js"></script>
+ 	<script src="./socket.io.js"></script>
 	<script src="./jquery-3.2.1.min.js"></script>
 	<script >
 		(function(){
 			var element = function(id){
 				return document.getElementById(id);
 			}
-			var submit= element('submit');
 			var clear = element('clear');
 			var team=[];
 			var score=[];
@@ -81,9 +80,13 @@
 			
 
 			var socket = io();
+			var socket2 = io('192.168.1.136:8080/score');
 
-			if(socket !== undefined){
+				if(socket !== undefined){
 				console.log('Connected');
+			};
+			if(socket2 !== undefined){
+				console.log('Connected to socket2');
 			};
 			socket.on('score',function(data){
 				if(data[0]!=0){
@@ -101,6 +104,20 @@
 					$('#counter').text(0);
 				}
 			});
+			var time=[];
+			socket2.on('submit',function(data){
+				console.log(data);
+				var i = parseInt(data.name.substr(1));
+				time[i]=data.time;
+				var tmp=time[i];
+				var gain=8;
+				for(var j=0;tmp>=0;j++){
+					gain+=2;
+					tmp-=10;
+				}
+				$('#team'+i).val(gain);
+
+			})
 			var check=[0,0,0,0,0,0,0,0];
 			$(document).ready(function(){
 				$("#submit").click(function(){
@@ -111,7 +128,7 @@
 							sendScore[i]=0;
 						}
 						sendScore.push(parseInt(team[i].value));
-						$('#team'+i).val(20);
+						//$('#team'+i).val(20);
 					}
 					socket.emit('update',sendScore);
 				});
@@ -122,13 +139,13 @@
 					$(this).click(function(){
 					var str = $(this).attr("id");
 					var i = str.substr(7);
-					console.log(i);
+					//console.log(i);
 					$('#team'+i).val(0);	
 				});
 				
 				$("button[id*='change2']").each(function(index){
 					check[index+1]++;
-					console.log(check[index+1]);
+					//	console.log(check[index+1]);
 					if(check[index+1]==1){
 						$(this).click(function(){
 							console.log(this);
@@ -136,7 +153,7 @@
 							console.log(index+1);
 							var str = $(this).attr("id");
 							var i = str.substr(7);
-							console.log(i);
+							//	console.log(i);
 							var tmp = $('#team'+i).val();
 							$('#team'+i).val(tmp-2);	
 						});
