@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="./bootstrap.min.css">
+	<script src="./bootstrap.min.js"></script>
+	<script src="./odometer.min.js"></script>
+	<!-- <script src="http://github.hubspot.com/odometer/odometer.js"></script> -->
+	<link rel="stylesheet" href="./odometer-theme-minimal.css" />
+	<!-- <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-car.css" /> -->
+
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+		.progress-bar {
+			width: 0%;
+		}
+	</style>
+	<style>
+.odometer {
+    font-size: 60px;
+}
+</style>
+</head>
+<body>
+	<div class="container">
+		<div class="row" style="height:500px;">
+			<div class="col-md" style="background: #f44242">
+				
+				<div id="scorefin1" class="odometer" style="position : absolute; bottom : 0 left: 20%;">0.00</div>
+			</div>
+			<div class="col-md" style="background: #92f442">
+				<!-- <p id="scorefin2" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
+				<div id="scorefin2" class="odometer" style="position : absolute; bottom : 0 left: 20%;">0.00</div>
+			</div>
+			<div class="col-md" style="background: #42aaf4">
+				<!-- <p id="scorefin3" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
+				<div id="scorefin3" class="odometer" style="position : absolute; bottom : 0 left: 20%;">0.00</div>
+			</div>
+			<div class="col-md" style="background: #bf42f4">
+				<!-- <p id="scorefin4" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
+				<div id="scorefin4" class="odometer" style="position : absolute; bottom : 0 left: 20%;">0.00</div>
+			</div>
+		</div>
+	</div>
+	<script src="./socket.io.js"></script>
+	<script src="./jquery-3.2.1.min.js"></script>
+	<script >
+		window.odometerOptions = {
+			animation: 'count'
+		};
+		(function(){
+			
+			var socket = io();
+
+			
+			if(socket !== undefined){
+				console.log('Connected');
+			};
+			socket.on('scorefin',function(data){
+				for (var i=1;i<5;i++) {
+					$('#scorefin'+i).text(data[i]);
+					var x =$('#scorefin'+i).width();
+					var y =$('#scorefin'+i).parent().width();
+					var percentage = x*100/y;
+					percentage /=2;
+					percentage = 50-percentage;
+					console.log(percentage);
+					//$('#scorefin'+i).css('left',percentage+'%');
+
+				}
+			});
+			socket.on('clearedfin',function(data){
+				for(var i=1;i<5;i++){
+					$('#scorefin'+i).text(0.00);
+						var x =$('#scorefin'+i).width();
+					var y =$('#scorefin'+i).parent().width();
+					var percentage = x*100/y;
+					percentage /=2;
+					percentage = 50-percentage;
+					console.log(percentage);
+					
+				}
+			})
+		})();
+
+		
+	</script>
+</body>
