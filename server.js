@@ -24,6 +24,15 @@ app.get('/consolefin', function(req, res){
 app.get('/scorefin', function(req, res){
   res.sendFile(__dirname + '/scoreboard-final.html');
 });
+app.get('/judgesemi', function(req, res){
+  res.sendFile(__dirname + '/judge-semi.html');
+});
+app.get('/judgefin', function(req, res){
+  res.sendFile(__dirname + '/judge-fin.html');
+});
+app.get('/judgesec', function(req, res){
+  res.sendFile(__dirname + '/judge-sec.html');
+});
 
 app.use(express.static('public'));
 var score=[];
@@ -86,6 +95,9 @@ io.on('connection', function(socket){
      for(var i=1;i<5;i++) scorefin[i]=0;
        io.emit('clearedfin',scorefin);
     }); 
+   socket.on('judgesemi', function(data){
+      io.emit('judgesemi2',data);
+   });
 });
 
 http.listen(3000, function(){

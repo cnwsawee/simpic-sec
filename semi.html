@@ -33,7 +33,6 @@
 	<div class="container">
 		<div class="row" style="height:900px;">
 			<div class="col-md" style="background: #f44242">
-				
 				<div id="scoresec1" class="odometer">0</div>
 			</div>
 			<div class="col-md" style="background: #92f442">
@@ -57,6 +56,7 @@
 	<script src="./socket.io.js"></script>
 	<script src="./jquery-3.2.1.min.js"></script>
 	<script >
+		
 		window.odometerOptions = {
 			animation: 'count'
 		};
@@ -71,10 +71,24 @@
 			socket.on('result',function(i,data){
 				console.log('working '+data);
 				$('#scoresec'+i).text(data);
+				var x =$('#scoresec'+i).width();
+					var y =$('#scoresec'+i).parent().width();
+					var percentage = x*100/y;
+					percentage /=2;
+					percentage = 50-percentage;
+					console.log(percentage);
+					$('#scoresec'+i).css('left',percentage+'%');
 			});
 			socket.on('cleared2',function(data){
 				for(var i=1;i<6;i++){
 					$('#scoresec'+i).text(0);
+					var x =$('#scoresec'+i).width();
+					var y =$('#scoresec'+i).parent().width();
+					var percentage = x*100/y;
+					percentage /=2;
+					percentage = 50-percentage;
+					console.log(percentage);
+					$('#scoresec'+i).css('left',percentage+'%');
 				}
 			})
 		})();

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="./bootstrap.min.css">
+	<script src="./bootstrap.min.js""></script>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+</head>
+<body>
+	<div class="container">
+		<div class="row" id="area" style="height : 600px;">
+		</div>
+		<div class="row">
+			<div class="col-md-4">
+				<button type="button" class="btn" id="btnGreen">Green</button>
+			</div>
+			<div class="col-md-4">
+				<button type="button" class="btn" id="btnRed">Red</button>
+			</div>
+			<div class="col-md-4">
+				<button type="button" class="btn" id="btnBlue">Blue</button>
+			</div>
+		</div>
+	</div>
+ 	<script src="./socket.io.js"></script>
+	<script src="./jquery-3.2.1.min.js"></script>
+	
+	<script >
+		(function(){
+			var socket=io();
+
+			if(socket != undefined){
+				console.log("connected");
+			}
+			$('#btnGreen').click(function(){
+				socket.emit('judgesemi',1);
+				console.log('2');
+			});
+			$('#btnRed').click(function(){
+				socket.emit('judgesemi',2);
+			});
+			$('#btnBlue').click(function(){
+				socket.emit('judgesemi',3);
+			});
+
+			socket.on('judgesemi2',function(data){
+				console.log('1');
+				if( data ==1){
+					$('#area').css('background','#00ff00');
+				}
+				if( data ==2){
+					$('#area').css('background','#ff4500');
+				}
+				if( data ==3){
+					$('#area').css('background','#0000ff');
+				}
+			});
+
+		})();
+	</script>
+</body>

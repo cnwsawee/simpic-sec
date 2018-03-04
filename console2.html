@@ -13,36 +13,45 @@
 			<span id="counter">0</span>  
 			<br>
 			<span id="score1">0</span>
-			<button type="button" class="btn btn-blue" id="change01">0</button>
-			<button type="button" class="btn btn-blue" id="change11">3</button>
-			<button type="button" class="btn btn-blue" id="change21">2</button>
-			<button type="button" class="btn btn-blue" id="change31">-1</button>
+			<button type="button" class="btn btn-primary" id="change01">0</button>
+			<button type="button" class="btn btn-primary" id="change11">3</button>
+			<button type="button" class="btn btn-primary" id="change21">2</button>
+			<button type="button" class="btn btn-primary" id="change31">-1</button>
+			<br>
 			<br>
 			<span id="score2">0</span>
-			<button type="button" class="btn btn-blue" id="change02">0</button>
-			<button type="button" class="btn btn-blue" id="change12">3</button>
-			<button type="button" class="btn btn-blue" id="change22">2</button>
-			<button type="button" class="btn btn-blue" id="change32">-1</button>
+			<button type="button" class="btn btn-primary" id="change02">0</button>
+			<button type="button" class="btn btn-primary" id="change12">3</button>
+			<button type="button" class="btn btn-primary" id="change22">2</button>
+			<button type="button" class="btn btn-primary" id="change32">-1</button>
+			<br>
 			<br>
 			<span id="score3">0</span>
-			<button type="button" class="btn btn-blue" id="change03">0</button>
-			<button type="button" class="btn btn-blue" id="change13">3</button>
-			<button type="button" class="btn btn-blue" id="change23">2</button>
-			<button type="button" class="btn btn-blue" id="change33">-1</button>
+			<button type="button" class="btn btn-primary" id="change03">0</button>
+			<button type="button" class="btn btn-primary" id="change13">3</button>
+			<button type="button" class="btn btn-primary" id="change23">2</button>
+			<button type="button" class="btn btn-primary" id="change33">-1</button>
+			<br>
 			<br>
 			<span id="score4">0</span>
-			<button type="button" class="btn btn-blue" id="change04">0</button>
-			<button type="button" class="btn btn-blue" id="change14">3</button>
-			<button type="button" class="btn btn-blue" id="change24">2</button>
-			<button type="button" class="btn btn-blue" id="change34">-1</button>
+			<button type="button" class="btn btn-primary" id="change04">0</button>
+			<button type="button" class="btn btn-primary" id="change14">3</button>
+			<button type="button" class="btn btn-primary" id="change24">2</button>
+			<button type="button" class="btn btn-primary" id="change34">-1</button>
+			<br>
 			<br>
 			<span id="score5">0</span>
-			<button type="button" class="btn btn-blue" id="change05">0</button>
-			<button type="button" class="btn btn-blue" id="change15">3</button>
-			<button type="button" class="btn btn-blue" id="change25">2</button>
-			<button type="button" class="btn btn-blue" id="change35">-1</button>
+			<button type="button" class="btn btn-primary" id="change05">0</button>
+			<button type="button" class="btn btn-primary" id="change15">3</button>
+			<button type="button" class="btn btn-primary" id="change25">2</button>
+			<button type="button" class="btn btn-primary" id="change35">-1</button>
+			<br>
 			<br>
 			<button type="button" class="btn btn-dark" id="clear">Clear</button>
+			<br>
+			<br>
+			<button type="button" class="btn btn-blue" id="tog-pic">Toggle Picture change</button>
+			<div class="modal" id="picModal" role="dialog"></div>
 	</div>
 <script src="./socket.io.js"></script>
 	<script src="./jquery-3.2.1.min.js"></script>
@@ -123,6 +132,7 @@
 						});
 					}
 				});
+				
 			});
 			})();
 	</script>
