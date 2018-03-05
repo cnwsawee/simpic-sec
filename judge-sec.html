@@ -49,6 +49,9 @@
 	<script >
 		(function(){
 			var socket=io();
+			var jsocket=io('127.0.0.1:8080/score');
+			var send=[];
+			for(var i=0;i<9;i++) send[i]=0;
 
 			if(socket != undefined){
 				console.log("connected");
@@ -59,11 +62,7 @@
 					socket.emit('judgesec',i);
 					console.log(i);
 					if(i==8){
-						var send=[];
-						for(var j=0;j<8;j++){
-							send[j]=$('#team'+i).html();
-						}
-						socket.emit('sendResult',send);
+						jsocket.emit('sendResult',send);
 					}
 
 				})
@@ -72,12 +71,15 @@
 			socket.on('judgesec2',function(i,val){
 				if(val%3==1){
 					$('#team'+i).css('background','#00ff00');
+					send[i]=1;
 				}
 				if(val%3==2){
 					$('#team'+i).css('background','#ff0000');
+					send[i]=2;
 				}
 				if(val%3==0){
 					$('#team'+i).css('background','#ffffff');
+					send[i]=0;
 				}
 			});
 			$('#button2').click(function(){
