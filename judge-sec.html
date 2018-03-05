@@ -35,7 +35,12 @@
 			<div class="col-md-6" id="team7">7</div>
 		</div>
 		<div>
-			<button type="button" class="btn" id="button2">Reset</button>
+			<div class="col-md">
+				<button type="button" class="btn" id="button2">Reset</button>
+			</div>
+			<div class="col-md-6" id="team8">
+				READY
+			</div>
 		</div>
 	</div>
  	<script src="./socket.io.js"></script>
@@ -53,6 +58,14 @@
 					var i = $(this).attr('id').substr(4);
 					socket.emit('judgesec',i);
 					console.log(i);
+					if(i==8){
+						var send=[];
+						for(var j=0;j<8;j++){
+							send[j]=$('#team'+i).html();
+						}
+						socket.emit('sendResult',send);
+					}
+
 				})
 			});
 

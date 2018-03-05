@@ -15,49 +15,51 @@
 			<span class="form-group">
 			<input type="text" id="team1"></span>
 			<span id="score1">0</span>
-			<button type="button" class="btn btn-blue" id="change01">0</button>
-			<button type="button" class="btn btn-blue" id="change21">-2</button>
+			<button type="button" class="btn btn-primary" id="change01">0</button>
+			<button type="button" class="btn btn-primary" id="change21">-2</button>
 			<br>
 			<span class="form-group">
 			<input type="text" id="team2"></span>
 			<span id="score2">0</span>
-			<button type="button" class="btn btn-blue" id="change02">0</button>
-			<button type="button" class="btn btn-blue" id="change22">-2</button>
+			<button type="button" class="btn btn-primary" id="change02">0</button>
+			<button type="button" class="btn btn-primary" id="change22">-2</button>
 			
 			<br>
 			<span class="form-group">
 			<input type="text" id="team3"></span>
 			<span id="score3">0</span>  
-			<button type="button" class="btn btn-blue" id="change03">0</button>
-			<button type="button" class="btn btn-blue" id="change23">-2</button>
+			<button type="button" class="btn btn-primary" id="change03">0</button>
+			<button type="button" class="btn btn-primary" id="change23">-2</button>
 			<br>
 			<span class="form-group">
 			<input type="text" id="team4"></span>
 			<span id="score4">0</span> 
-			<button type="button" class="btn btn-blue" id="change04">0</button>
-			<button type="button" class="btn btn-blue" id="change24">-2</button> 
+			<button type="button" class="btn btn-primary" id="change04">0</button>
+			<button type="button" class="btn btn-primary" id="change24">-2</button> 
 			<br>
 			<span class="form-group">
 			<input type="text" id="team5"></span>
 			<span id="score5">0</span>  
-			<button type="button" class="btn btn-blue" id="change05">0</button>
-			<button type="button" class="btn btn-blue" id="change25">-2</button>
+			<button type="button" class="btn btn-primary" id="change05">0</button>
+			<button type="button" class="btn btn-primary" id="change25">-2</button>
 			
 			<br>
 			<span class="form-group">
 			<input type="text" id="team6"></span>
 			<span id="score6">0</span>  
-			<button type="button" class="btn btn-blue" id="change06">0</button>
-			<button type="button" class="btn btn-blue" id="change26">-2</button>
+			<button type="button" class="btn btn-primary" id="change06">0</button>
+			<button type="button" class="btn btn-primary" id="change26">-2</button>
 			<br>
 			<span class="form-group">
 			<input type="text" id="team7"></span>
 			<span id="score7">0</span>  
-			<button type="button" class="btn btn-blue" id="change07">0</button>
-			<button type="button" class="btn btn-blue" id="change27">-2</button>
+			<button type="button" class="btn btn-primary" id="change07">0</button>
+			<button type="button" class="btn btn-primary" id="change27">-2</button>
 			<br>
 			<button type="button" class="btn btn-dark" id="submit">Submit</button>
 			<button type="button" class="btn btn-dark" id="clear">Clear</button>
+			<br>
+			<button class="btn btn-primary" id="elim">Eliminate</button>
 	</div>
  	<script src="./socket.io.js"></script>
 	<script src="./jquery-3.2.1.min.js"></script>
@@ -159,8 +161,12 @@
 						});
 					}
 				});
-					
+
+				$('#elim').click(function(){
+					socket.emit('elim',1);
 				});
+					
+			});
 			});
 			})();
 	</script>

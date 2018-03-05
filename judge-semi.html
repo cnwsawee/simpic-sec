@@ -11,14 +11,17 @@
 		<div class="row" id="area" style="height : 600px;">
 		</div>
 		<div class="row">
-			<div class="col-md-4">
-				<button type="button" class="btn" id="btnGreen">Green</button>
+			<div class="col-md-3">
+				<button type="button" class="btn btn-primary" id="btnGreen">Green</button>
 			</div>
-			<div class="col-md-4">
-				<button type="button" class="btn" id="btnRed">Red</button>
+			<div class="col-md-3">
+				<button type="button" class="btn btn-primary" id="btnRed">Red</button>
 			</div>
-			<div class="col-md-4">
-				<button type="button" class="btn" id="btnBlue">Blue</button>
+			<div class="col-md-3">
+				<button type="button" class="btn btn-primary" id="btnBlue">Blue</button>
+			</div>
+			<div class="col-md-3">
+				<button type="button" class="btn btn-primary" id="btnClear">Clear</button>
 			</div>
 		</div>
 	</div>
@@ -42,6 +45,9 @@
 			$('#btnBlue').click(function(){
 				socket.emit('judgesemi',3);
 			});
+			$('#btnBlue').click(function(){
+				socket.emit('judgesemi',4);
+			});
 
 			socket.on('judgesemi2',function(data){
 				console.log('1');
@@ -53,6 +59,9 @@
 				}
 				if( data ==3){
 					$('#area').css('background','#0000ff');
+				}
+				if( data==4){
+					$('#area').css('background','#ffffff');
 				}
 			});
 

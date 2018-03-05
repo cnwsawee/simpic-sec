@@ -43,8 +43,8 @@ var judgesecond=[];
 var judgefinal=[];
 for(var i=0;i<6;i++) score2[i]=0;
 for(var i=1;i<5;i++) scorefin[i]=0;
-for(var i=1;i<8;i++) judgesecond[i]=0;
-for(var i=1;i<5;i++) judgefinal[i]=0;
+for(var i=1;i<9;i++) judgesecond[i]=0;
+for(var i=1;i<6;i++) judgefinal[i]=0;
 io.on('connection', function(socket){
     console.log('a user connected');
 
@@ -53,21 +53,21 @@ io.on('connection', function(socket){
         score[i]+=data[i];
       }
       score[0]++;
-      if(score[0]==5 || score[0]==7){
-        var min=1000;
-        for(var j=1;j<8;j++){
-          if(score[j]<min && score[j]!=-1) min=score[j];
-        }
-        var count=0;
-        for(var j=1;j<8;j++){
-          if(score[j]==min) count++;
-        }
-        if(count<3){
-          for(var j=1;j<8;j++){
-            if(score[j]==min) score[j]=-1;
-          }
-        }
-      }
+      // if(score[0]==5 || score[0]==7){
+      //   var min=1000;
+      //   for(var j=1;j<8;j++){
+      //     if(score[j]<min && score[j]!=-1) min=score[j];
+      //   }
+      //   var count=0;
+      //   for(var j=1;j<8;j++){
+      //     if(score[j]==min) count++;
+      //   }
+      //   if(count<3){
+      //     for(var j=1;j<8;j++){
+      //       if(score[j]==min) score[j]=-1;
+      //     }
+      //   }
+      // }
       io.emit('score',score);
       console.log('working');
     });
@@ -103,15 +103,15 @@ io.on('connection', function(socket){
       io.emit('judgesemi2',data);
    });
    socket.on('judgesec', function(i){
-      judgefinal[i]++;
+      judgesecond[i]++;
       if(i==0){
-        for(var j=0;j<8;j++){
-          judgefinal[j]=0;
-          io.emit('judgesec2',j,judgefinal[j]);
+        for(var j=0;j<9;j++){
+          judgesecond[j]=0;
+          io.emit('judgesec2',j,judgesecond[j]);
         }
 
       }
-      io.emit('judgesec2',i,judgefinal[i]);
+      io.emit('judgesec2',i,judgesecond[i]);
    });
    socket.on('judgefin', function(i){
       judgefinal[i]++;
@@ -124,6 +124,23 @@ io.on('connection', function(socket){
       }
       io.emit('judgefin2',i,judgefinal[i]);
    });
+   socket.on('elim',function(data){
+      var min=1000;
+      for(var j=1;j<8;j++){
+        if(score[j]<min && score[j]!=-1) min=score[j];
+      }
+      var count=0;
+      for(var j=1;j<8;j++){
+        if(score[j]==min) count++;
+      }
+      if(count<3){
+        for(var j=1;j<8;j++){
+          if(score[j]==min) score[j]=-1;
+        }
+      }
+      io.emit('score',score);
+
+   })
 });
 
 http.listen(3000, function(){
