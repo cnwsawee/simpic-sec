@@ -39,8 +39,12 @@ var score=[];
 for(var i=0;i<8;i++) score[i]=0;
 var score2=[];
 var scorefin=[];
+var judgesecond=[];
+var judgefinal=[];
 for(var i=0;i<6;i++) score2[i]=0;
 for(var i=1;i<5;i++) scorefin[i]=0;
+for(var i=1;i<8;i++) judgesecond[i]=0;
+for(var i=1;i<5;i++) judgefinal[i]=0;
 io.on('connection', function(socket){
     console.log('a user connected');
 
@@ -97,6 +101,28 @@ io.on('connection', function(socket){
     }); 
    socket.on('judgesemi', function(data){
       io.emit('judgesemi2',data);
+   });
+   socket.on('judgesec', function(i){
+      judgefinal[i]++;
+      if(i==0){
+        for(var j=0;j<8;j++){
+          judgefinal[j]=0;
+          io.emit('judgesec2',j,judgefinal[j]);
+        }
+
+      }
+      io.emit('judgesec2',i,judgefinal[i]);
+   });
+   socket.on('judgefin', function(i){
+      judgefinal[i]++;
+      if(i==0){
+        for(var j=0;j<8;j++){
+          judgefinal[j]=0;
+          io.emit('judgefin2',j,judgefinal[j]);
+        }
+
+      }
+      io.emit('judgefin2',i,judgefinal[i]);
    });
 });
 

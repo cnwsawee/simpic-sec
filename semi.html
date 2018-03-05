@@ -21,6 +21,9 @@
 .odometer {
     font-size: 100px;
 }
+.span-1 {
+	position : absolute; bottom : 0;left:0;
+}
 </style>
 </head>
 <body>
@@ -33,22 +36,32 @@
 	<div class="container">
 		<div class="row" style="height:900px;">
 			<div class="col-md" style="background: #f44242">
-				<div id="scoresec1" class="odometer">0</div>
+				<span class="span-1">
+					<div id="scoresec1" class="odometer">0</div>
+				</span>
 			</div>
 			<div class="col-md" style="background: #92f442">
 				<!-- <p id="scoresec2" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
-				<div id="scoresec2" class="odometer">0</div>
+				<span class="span-1">
+					<div id="scoresec2" class="odometer">0</div>
+				</span>
 			</div>
 			<div class="col-md" style="background: #42aaf4">
 				<!-- <p id="scoresec3" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
-				<div id="scoresec3" class="odometer">0</div>
+				<span class="span-1">
+					<div id="scoresec3" class="odometer">0</div>
+				</span>
 			</div>
 			<div class="col-md" style="background: #bf42f4">
 				<!-- <p id="scoresec4" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
-				<div id="scoresec4" class="odometer">0</div>
+				<span class="span-1">
+					<div id="scoresec4" class="odometer">0</div>
+				</span>
 			</div>	
 			<div class="col-md" style="background: #f442ad">
-				<div id="scoresec5" class="odometer">0</div>
+				<span class="span-1">
+					<div id="scoresec5" class="odometer">0</div>
+				</span>
 				<!-- <p id="scoresec5" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
 			</div>
 		</div>
@@ -57,9 +70,7 @@
 	<script src="./jquery-3.2.1.min.js"></script>
 	<script >
 		
-		window.odometerOptions = {
-			animation: 'count'
-		};
+		
 		(function(){
 			
 			var socket = io();
@@ -72,23 +83,17 @@
 				console.log('working '+data);
 				$('#scoresec'+i).text(data);
 				var x =$('#scoresec'+i).width();
-					var y =$('#scoresec'+i).parent().width();
-					var percentage = x*100/y;
-					percentage /=2;
-					percentage = 50-percentage;
-					console.log(percentage);
-					$('#scoresec'+i).css('left',percentage+'%');
+					var y =$('#scoresec'+i).parent().parent().width();
+					var position=(y-x)/2;
+					$('#scoresec'+i).css('left',position);
 			});
 			socket.on('cleared2',function(data){
 				for(var i=1;i<6;i++){
 					$('#scoresec'+i).text(0);
 					var x =$('#scoresec'+i).width();
-					var y =$('#scoresec'+i).parent().width();
-					var percentage = x*100/y;
-					percentage /=2;
-					percentage = 50-percentage;
-					console.log(percentage);
-					$('#scoresec'+i).css('left',percentage+'%');
+					var y =$('#scoresec'+i).parent().parent().width();
+					var position=(y-x)/2;
+					$('#scoresec'+i).css('left',position);
 				}
 			})
 		})();
