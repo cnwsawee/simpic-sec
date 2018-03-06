@@ -85,7 +85,7 @@ io.on('connection', function(socket){
     socket.on('sendfin',function(data){
       for(var i=1;i<5;i++){
             if(data[i]==0) scorefin[i]=scorefin[i]*4/5;
-            if(data[i]==1) scorefin[i]+=20;
+            if(data[i]==1) scorefin[i]+=10;
           }
       io.emit('scorefin',scorefin);
     });

@@ -17,28 +17,62 @@
 	</style>
 	<style>
 .odometer {
-    font-size: 60px;
+    font-size: 80px;
+}
+.span1 {
+	position : absolute; bottom : 0;left:0;
+}
+.container1 {
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.col-md {
+	padding: 0;
+	margin: 0;
+}
+.odomain{
+	font-size: 150px;
+}
+.odoright{
+	position :absolute;
+	left :100%;
 }
 </style>
 </head>
 <body>
-	<div class="container">
-		<div class="row" style="height:500px;">
+	<div class="container1">
+		<div class="row" style="height: 100vh;">
 			<div class="col-md" style="background: #f44242">
-				
-				<div id="scorefin1" class="odometer" style="position : absolute; bottom : 0 left: 20%;">0.00</div>
+				<span class='span1'>
+					<div id="scorefin1" class="odometer odomain" >0.00</div>
+					<br>
+					<div id="scorefin1-correct" class='odometer odoleft' >0.00</div>
+					<div id="scorefin1-wrong" class='odometer odoright' >0.00</div>
+				</span>
 			</div>
 			<div class="col-md" style="background: #92f442">
-				<!-- <p id="scorefin2" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
-				<div id="scorefin2" class="odometer" style="position : absolute; bottom : 0 left: 20%;">0.00</div>
+				<span class='span1'>
+					<div id="scorefin2" class="odometer odomain" >0.00</div>
+					<br>
+					<div id="scorefin2-correct" class='odometer odoleft' >0.00</div>
+					<div id="scorefin2-wrong" class='odometer odoright' >0.00</div>
+				</span>
 			</div>
 			<div class="col-md" style="background: #42aaf4">
-				<!-- <p id="scorefin3" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
-				<div id="scorefin3" class="odometer" style="position : absolute; bottom : 0 left: 20%;">0.00</div>
+				<span class='span1'>
+					<div id="scorefin3" class="odometer odomain" >0.00</div>
+					<br>
+					<div id="scorefin3-correct" class='odometer odoleft' >0.00</div>
+					<div id="scorefin3-wrong" class='odometer odoright' >0.00</div>
+				</span>
 			</div>
 			<div class="col-md" style="background: #bf42f4">
-				<!-- <p id="scorefin4" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
-				<div id="scorefin4" class="odometer" style="position : absolute; bottom : 0 left: 20%;">0.00</div>
+				<span class='span1'>
+					<div id="scorefin4" class="odometer odomain" >0.00</div>
+					<br>
+					<div id="scorefin4-correct" class='odometer odoleft' >0.00</div>
+					<div id="scorefin4-wrong" class='odometer odoright' >0.00</div>
+				</span>
 			</div>
 		</div>
 	</div>
@@ -59,26 +93,20 @@
 			socket.on('scorefin',function(data){
 				for (var i=1;i<5;i++) {
 					$('#scorefin'+i).text(data[i]);
+					$('#scorefin'+i+'-correct').text(data[i]+10);
+					$('#scorefin'+i+'-wrong').text(data[i]*4/5);
 					var x =$('#scorefin'+i).width();
-					var y =$('#scorefin'+i).parent().width();
-					var percentage = x*100/y;
-					percentage /=2;
-					percentage = 50-percentage;
-					console.log(percentage);
-					$('#scorefin'+i).css('left',percentage+'%');
+					var y =$('#scorefin'+i).parent().parent().width();
+					$('#scorefin'+i).css('left',(y-x)/2);
 
 				}
 			});
 			socket.on('clearedfin',function(data){
 				for(var i=1;i<5;i++){
 					$('#scorefin'+i).text(0.00);
-						var x =$('#scorefin'+i).width();
-					var y =$('#scorefin'+i).parent().width();
-					var percentage = x*100/y;
-					percentage /=2;
-					percentage = 50-percentage;
-					console.log(percentage);
-					
+					var x =$('#scorefin'+i).width();
+					var y =$('#scorefin'+i).parent().parent().width();
+					$('#scorefin'+i).css('left',(y-x)/2);
 				}
 			})
 		})();
