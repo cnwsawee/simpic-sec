@@ -45,7 +45,7 @@
 			$('#btnBlue').click(function(){
 				socket.emit('judgesemi',3);
 			});
-			$('#btnBlue').click(function(){
+			$('#btnClear').click(function(){
 				socket.emit('judgesemi',4);
 			});
 
@@ -60,7 +60,7 @@
 				if( data ==3){
 					$('#area').css('background','#0000ff');
 				}
-				if( data==4){
+				if( data ==4){
 					$('#area').css('background','#ffffff');
 				}
 			});

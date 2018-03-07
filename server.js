@@ -35,16 +35,18 @@ app.get('/judgesec', function(req, res){
 });
 
 app.use(express.static('public'));
+app.use(express.static('images'));
+
 var score=[];
-for(var i=0;i<8;i++) score[i]=0;
+for(var k=0;k<8;k++) score[k]=0;
 var score2=[];
 var scorefin=[];
 var judgesecond=[];
 var judgefinal=[];
-for(var i=0;i<6;i++) score2[i]=0;
-for(var i=1;i<5;i++) scorefin[i]=0;
-for(var i=1;i<9;i++) judgesecond[i]=0;
-for(var i=1;i<6;i++) judgefinal[i]=0;
+for(var k=0;k<6;k++) score2[k]=0;
+for(var k=1;k<5;k++) scorefin[k]=0;
+for(var k=1;k<9;k++) judgesecond[k]=0;
+for(var k=1;k<6;k++) judgefinal[k]=0;
 io.on('connection', function(socket){
     console.log('a user connected');
 
@@ -84,7 +86,7 @@ io.on('connection', function(socket){
 
     socket.on('sendfin',function(data){
       for(var i=1;i<5;i++){
-            if(data[i]==0) scorefin[i]=scorefin[i]*4/5;
+            if(data[i]==-1) scorefin[i]=scorefin[i]*4/5;
             if(data[i]==1) scorefin[i]+=10;
           }
       io.emit('scorefin',scorefin);
@@ -133,7 +135,7 @@ io.on('connection', function(socket){
       for(var j=1;j<8;j++){
         if(score[j]==min) count++;
       }
-      if(count<3){
+      if(count<3 && count!=0){
         for(var j=1;j<8;j++){
           if(score[j]==min) score[j]=-1;
         }

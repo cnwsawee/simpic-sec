@@ -16,26 +16,30 @@
 			<input type="text" id="team1"></span>
 			<span id="score1">0</span>
 			<button type="button" class="btn btn-blue" id="change01">Correct</button>
-			<button type="button" class="btn btn-blue" id="change21">Incorrect</button>
+			<button type="button" class="btn btn-blue" id="change11">Incorrect</button>
+			<button type="button" class="btn btn-blue" id="change21">Not Answer</button>
 			<br>
 			<span class="form-group">
 			<input type="text" id="team2"></span>
 			<span id="score2">0</span>
 			<button type="button" class="btn btn-blue" id="change02">Correct</button>
-			<button type="button" class="btn btn-blue" id="change22">Incorrect</button>
+			<button type="button" class="btn btn-blue" id="change12">Incorrect</button>
+			<button type="button" class="btn btn-blue" id="change22">Not Answer</button>
 			
 			<br>
 			<span class="form-group">
 			<input type="text" id="team3"></span>
 			<span id="score3">0</span>  
 			<button type="button" class="btn btn-blue" id="change03">Correct</button>
-			<button type="button" class="btn btn-blue" id="change23">Incorrect</button>
+			<button type="button" class="btn btn-blue" id="change13">Incorrect</button>
+			<button type="button" class="btn btn-blue" id="change23">Not Answer</button>
 			<br>
 			<span class="form-group">
 			<input type="text" id="team4"></span>
 			<span id="score4">0</span> 
 			<button type="button" class="btn btn-blue" id="change04">Correct</button>
-			<button type="button" class="btn btn-blue" id="change24">Incorrect</button> 
+			<button type="button" class="btn btn-blue" id="change14">Incorrect</button>
+			<button type="button" class="btn btn-blue" id="change24">Not Answer</button> 
 			<br><br>
 			<button type="button" class="btn btn-dark" id="submit">Submit</button>
 			<button type="button" class="btn btn-dark" id="clear">Clear</button>
@@ -99,6 +103,13 @@
 					$('#team'+i).val(1);	
 				});
 				
+				$("button[id*='change1']").each(function(index){
+					$(this).click(function(){
+						var str = $(this).attr("id");
+						var i = str.substr(7);
+						$('#team'+i).val(-1);
+					})
+				});
 				$("button[id*='change2']").each(function(index){
 					$(this).click(function(){
 						var str = $(this).attr("id");

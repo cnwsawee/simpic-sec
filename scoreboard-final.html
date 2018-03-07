@@ -17,7 +17,7 @@
 	</style>
 	<style>
 .odometer {
-    font-size: 80px;
+    font-size: 60px;
 }
 .span1 {
 	position : absolute; bottom : 0;left:0;
@@ -31,26 +31,27 @@
 	margin: 0;
 }
 .odomain{
-	font-size: 150px;
+	font-size: 100px;
 }
 .odoright{
 	position :absolute;
-	left :100%;
+	left :50%;
 }
 </style>
 </head>
 <body>
 	<div class="container1">
 		<div class="row" style="height: 100vh;">
-			<div class="col-md" style="background: #f44242">
+			<div class="col-md-3" style="background: #f44242">
 				<span class='span1'>
 					<div id="scorefin1" class="odometer odomain" >0.00</div>
 					<br>
+
 					<div id="scorefin1-correct" class='odometer odoleft' >0.00</div>
 					<div id="scorefin1-wrong" class='odometer odoright' >0.00</div>
 				</span>
 			</div>
-			<div class="col-md" style="background: #92f442">
+			<div class="col-md-3" style="background: #92f442">
 				<span class='span1'>
 					<div id="scorefin2" class="odometer odomain" >0.00</div>
 					<br>
@@ -58,7 +59,7 @@
 					<div id="scorefin2-wrong" class='odometer odoright' >0.00</div>
 				</span>
 			</div>
-			<div class="col-md" style="background: #42aaf4">
+			<div class="col-md-3" style="background: #42aaf4">
 				<span class='span1'>
 					<div id="scorefin3" class="odometer odomain" >0.00</div>
 					<br>
@@ -66,7 +67,7 @@
 					<div id="scorefin3-wrong" class='odometer odoright' >0.00</div>
 				</span>
 			</div>
-			<div class="col-md" style="background: #bf42f4">
+			<div class="col-md-3" style="background: #bf42f4">
 				<span class='span1'>
 					<div id="scorefin4" class="odometer odomain" >0.00</div>
 					<br>
@@ -79,9 +80,6 @@
 	<script src="./socket.io.js"></script>
 	<script src="./jquery-3.2.1.min.js"></script>
 	<script >
-		window.odometerOptions = {
-			animation: 'count'
-		};
 		(function(){
 			
 			var socket = io();
