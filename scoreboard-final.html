@@ -20,7 +20,9 @@
     font-size: 60px;
 }
 .span1 {
-	position : absolute; bottom : 0;left:0;
+	position : absolute; 
+	/*bottom : 0;
+	left:0;*/
 }
 .container1 {
 	padding-left: 15px;
@@ -34,15 +36,22 @@
 	font-size: 100px;
 }
 .odoright{
-	position :absolute;
-	left :50%;
+	color: rgb(209, 25, 25);
+	/*position :absolute;
+	left :50%*/;
+}
+.odoleft{
+	color: rgb(34, 181, 28);
+}z
+.col-md-3{
+	padding: : 15px;
 }
 </style>
 </head>
 <body>
 	<div class="container1">
 		<div class="row" style="height: 100vh;">
-			<div class="col-md-3" style="background: #f44242">
+			<div class="col-md-3" style="background: rgb(230, 255, 196)">
 				<span class='span1'>
 					<div id="scorefin1" class="odometer odomain" >0.00</div>
 					<br>
@@ -51,7 +60,7 @@
 					<div id="scorefin1-wrong" class='odometer odoright' >0.00</div>
 				</span>
 			</div>
-			<div class="col-md-3" style="background: #92f442">
+			<div class="col-md-3" style="background: rgb(170, 239, 233)">
 				<span class='span1'>
 					<div id="scorefin2" class="odometer odomain" >0.00</div>
 					<br>
@@ -59,7 +68,7 @@
 					<div id="scorefin2-wrong" class='odometer odoright' >0.00</div>
 				</span>
 			</div>
-			<div class="col-md-3" style="background: #42aaf4">
+			<div class="col-md-3" style="background: rgb(216, 170, 239)">
 				<span class='span1'>
 					<div id="scorefin3" class="odometer odomain" >0.00</div>
 					<br>
@@ -67,7 +76,7 @@
 					<div id="scorefin3-wrong" class='odometer odoright' >0.00</div>
 				</span>
 			</div>
-			<div class="col-md-3" style="background: #bf42f4">
+			<div class="col-md-3" style="background: rgb(255, 237, 196)">
 				<span class='span1'>
 					<div id="scorefin4" class="odometer odomain" >0.00</div>
 					<br>
@@ -80,10 +89,21 @@
 	<script src="./socket.io.js"></script>
 	<script src="./jquery-3.2.1.min.js"></script>
 	<script >
-		(function(){
-			
+		function pos(i){
+				$('#scorefin'+i).css('left',($('#scorefin'+i).parent().parent().width()-$('#scorefin'+i).width())/2);
+				//console.log($('#scorefin'+i+'-wrong').parent().parent().width()-15-$('#scorefin'+i+'-wrong').width());
+				$('#scorefin'+i+'-wrong').css('left',$('#scorefin'+i+'-wrong').parent().parent().width()-30-$('#scorefin'+i+'-wrong').width());
+		};
+		(function(){			
 			var socket = io();
-
+			$(document).ready(function(){
+				for(var i=1;i<5;i++){
+					// var x =$('#scorefin'+i).width();
+					// var y =$('#scorefin'+i).parent().parent().width();
+					// $('#scorefin'+i).css('left',(y-x)/2);
+					pos(i);
+				}
+			});
 			
 			if(socket !== undefined){
 				console.log('Connected');
@@ -93,18 +113,16 @@
 					$('#scorefin'+i).text(data[i]);
 					$('#scorefin'+i+'-correct').text(data[i]+10);
 					$('#scorefin'+i+'-wrong').text(data[i]*4/5);
-					var x =$('#scorefin'+i).width();
-					var y =$('#scorefin'+i).parent().parent().width();
-					$('#scorefin'+i).css('left',(y-x)/2);
-
+					pos(i);
+					console.log(12616156);
 				}
 			});
 			socket.on('clearedfin',function(data){
 				for(var i=1;i<5;i++){
 					$('#scorefin'+i).text(0.00);
-					var x =$('#scorefin'+i).width();
-					var y =$('#scorefin'+i).parent().parent().width();
-					$('#scorefin'+i).css('left',(y-x)/2);
+					$('#scorefin'+i+'-correct').text(10);
+					$('#scorefin'+i+'-wrong').text(0);
+					pos(i);
 				}
 			})
 		})();

@@ -24,6 +24,9 @@ app.get('/consolefin', function(req, res){
 app.get('/scorefin', function(req, res){
   res.sendFile(__dirname + '/scoreboard-final.html');
 });
+app.get('/scorefin2', function(req, res){
+  res.sendFile(__dirname + '/scoreboard-final2.html');
+});
 app.get('/judgesemi', function(req, res){
   res.sendFile(__dirname + '/judge-semi.html');
 });
