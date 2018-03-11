@@ -18,30 +18,63 @@
 	</style>
 	<style>
 .container1 {
-	padding-left: 15px;
-	padding-right: 15px;
+	/*padding-left: 27px;*/
+	/*padding-right: 18px;*/
 }
 .scoreNum{
 	font-size: 80px;
 }
 .scoreInc{
 	font-size: 50px;
+	color: rgb(34, 181, 28);
 }
 .scoreDec{
 	font-size: 50px;
+	color: rgb(209, 25, 25);
+}
+.teamName{
+	font-size: 100px;
+}
+.team1{
+	color: rgb(0, 0, 0);
+}
+.team2{
+	color: rgb(0, 0, 0);
+}
+.team3{
+	color: rgb(0, 0, 0);
+}
+.team4{
+	color: rgb(0, 0, 0);
+}
+.col-shadow{
+	box-shadow: 0px 0px 80px grey;
+}
+.col-md-3{
+	padding-left: 0px;
+	padding-right: 0px;
+}
+.thirdRow{
+	padding-left: 25px;
+	padding-right: 25px;
 }
 </style>
 </head>
 <body>
 	<div class="container1">
 		<div class="row" style="height: 100vh;">
-			<div class="col-md-3" style="background: rgb(230, 255, 196)">
+			<div class="col-md-3 col-shadow" style="background: rgb(230, 255, 196)">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<span class="teamName team1">PNU</span>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<div class="scoreNum" id="scoreNum1">0</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row thirdRow">
 					<div class="col-md-6">
 						<span class="scoreInc" id="scoreInc1">0</span>
 					</div>
@@ -49,14 +82,24 @@
 						<span class="scoreDec" id="scoreDec1">0</span>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<img src="./emblem-t68-e.png" style="width: 320px;">
+					</div>
+				</div>
 			</div>
-			<div class="col-md-3" style="background: rgb(170, 239, 233)">
+			<div class="col-md-3 col-shadow" style="background: rgb(170, 239, 233)">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<span class="teamName team2">CMU</span>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<div class="scoreNum" id="scoreNum2">0</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row thirdRow">
 					<div class="col-md-6">
 						<span class="scoreInc" id="scoreInc2">0</span>
 					</div>
@@ -64,14 +107,24 @@
 						<span class="scoreDec" id="scoreDec2">0</span>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<img src="./emblem-t93.png" style="width: 320px;">
+					</div>
+				</div>
 			</div>
-			<div class="col-md-3" style="background: rgb(216, 170, 239)">
+			<div class="col-md-3 col-shadow" style="background: rgba(216, 170, 239, 0.6)">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<span class="teamName team3">SI</span>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<div class="scoreNum" id="scoreNum3">0</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row thirdRow">
 					<div class="col-md-6">
 						<span class="scoreInc" id="scoreInc3">0</span>
 					</div>
@@ -79,19 +132,34 @@
 						<span class="scoreDec" id="scoreDec3">0</span>
 					</div>
 				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<img src="./emblem-t66.png" style="width: 320px;">
+					</div>
+				</div>
 			</div>
-			<div class="col-md-3" style="background: rgb(255, 237, 196)">
+			<div class="col-md-3 col-shadow" style="background: rgb(255, 237, 196)">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<span class="teamName team4">CU</span>
+					</div>
+				</div>
 				<div class="row">
 					<div class="col-md-12 text-center">
 						<div class="scoreNum" id="scoreNum4">0</div>
 					</div>
 				</div>
-				<div class="row">
+				<div class="row thirdRow">
 					<div class="col-md-6">
 						<span class="scoreInc" id="scoreInc4">0</span>
 					</div>
 					<div class="col-md-6 text-right">
 						<span class="scoreDec" id="scoreDec4">0</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<img src="./emblem-t93.png" style="width: 320px;">
 					</div>
 				</div>
 			</div>
@@ -114,13 +182,7 @@
 				scoreInc.push(new CountUp('scoreInc'+i,0,0,2,2.5, options));
 				scoreDec.push(new CountUp('scoreDec'+i,0,0,2,2.5, options));
 			}
-			var socket = io();
-			$(document).ready(function(){
-				for(var i=1;i<5;i++){
-					pos(i);
-				}
-			});
-			
+			var socket = io();		
 			if(socket !== undefined){
 				console.log('Connected');
 			};
@@ -132,6 +194,7 @@
 					scoreDec[i].update(data[i]*4/5);
 				}
 			});
+
 			socket.on('clearedfin',function(data){
 				for(var i=1;i<5;i++){
 					scoreNum[i].update(data[i]);

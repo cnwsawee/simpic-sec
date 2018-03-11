@@ -39,7 +39,7 @@ app.get('/judgesec', function(req, res){
 
 app.use(express.static('public'));
 app.use(express.static('images'));
-
+var jsocket=io.of('/score');
 var score=[];
 for(var k=0;k<8;k++) score[k]=0;
 var score2=[];
@@ -85,14 +85,6 @@ io.on('connection', function(socket){
     socket.on('semi', function(i,data){
       score2[i]+=data;
       io.emit('result',i,score2[i]);
-    });
-
-    socket.on('sendfin',function(data){
-      for(var i=1;i<5;i++){
-            if(data[i]==-1) scorefin[i]=scorefin[i]*4/5;
-            if(data[i]==1) scorefin[i]+=10;
-          }
-      io.emit('scorefin',scorefin);
     });
 
    socket.on('clear2', function(data){
@@ -146,8 +138,25 @@ io.on('connection', function(socket){
       io.emit('score',score);
 
    })
+   socket.on('sendfin',function(data){
+      console.log(1);
+      for(var i=1;i<5;i++){
+            if(data[i]==-1) scorefin[i]=scorefin[i]*4/5;
+            if(data[i]==1) scorefin[i]+=10;
+          }
+      io.emit('scorefin',scorefin);
+    });
 });
-
+jsocket.on('connection',function(socket){
+socket.on('scoreFinal',function(data){
+      console.log(1);
+      for(var i=1;i<5;i++){
+            if(data[i]==-1) scorefin[i]=scorefin[i]*4/5;
+            if(data[i]==1) scorefin[i]+=10;
+          }
+      io.emit('scorefin',scorefin);
+    });
+});
 http.listen(3000, function(){
   console.log('listening on *:3000');
 });
