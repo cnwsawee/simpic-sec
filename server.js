@@ -6,6 +6,9 @@ var io = require('socket.io')(http);
 app.get('/scoreboard', function(req, res){
   res.sendFile(__dirname + '/scoreboard.html');
 });
+app.get('/scoreboard2', function(req, res){
+  res.sendFile(__dirname + '/scoreboard2.html');
+});
 app.get('/console', function(req, res){
   res.sendFile(__dirname + '/console.html');
 });
@@ -41,7 +44,7 @@ app.use(express.static('public'));
 app.use(express.static('images'));
 var jsocket=io.of('/score');
 var score=[];
-for(var k=0;k<8;k++) score[k]=0;
+for(var k=1;k<9;k++) score[k]=0;
 var score2=[];
 var scorefin=[];
 var judgesecond=[];
@@ -57,26 +60,9 @@ io.on('connection', function(socket){
        for(var i=1;i<8;i++){
         score[i]+=data[i];
       }
-      score[0]++;
-      // if(score[0]==5 || score[0]==7){
-      //   var min=1000;
-      //   for(var j=1;j<8;j++){
-      //     if(score[j]<min && score[j]!=-1) min=score[j];
-      //   }
-      //   var count=0;
-      //   for(var j=1;j<8;j++){
-      //     if(score[j]==min) count++;
-      //   }
-      //   if(count<3){
-      //     for(var j=1;j<8;j++){
-      //       if(score[j]==min) score[j]=-1;
-      //     }
-      //   }
-      // }
       io.emit('score',score);
       console.log('working');
     });
-
     socket.on('clear', function(data){
      for(var i=0;i<8;i++) score[i]=0;
        io.emit('cleared',score);
@@ -122,17 +108,24 @@ io.on('connection', function(socket){
       io.emit('judgefin2',i,judgefinal[i]);
    });
    socket.on('elim',function(data){
-      var min=1000;
+      var min=1000,count=0;
       for(var j=1;j<8;j++){
-        if(score[j]<min && score[j]!=-1) min=score[j];
+        if(score[j]<min && score[j]>=0) {
+          min=score[j];
+          console.log('a',j);
+        }
       }
-      var count=0;
       for(var j=1;j<8;j++){
-        if(score[j]==min) count++;
+        if(min==score[j] && score[j]>=0) count++;
       }
       if(count<3 && count!=0){
         for(var j=1;j<8;j++){
-          if(score[j]==min) score[j]=-1;
+          if(min==score[j]){
+            console.log(min,score[j]);
+            score[j]=-1;
+            io.emit('eliminated',j);
+            console.log("elim");
+          }
         }
       }
       io.emit('score',score);
@@ -147,8 +140,11 @@ io.on('connection', function(socket){
       io.emit('scorefin',scorefin);
     });
 });
+
+
+
 jsocket.on('connection',function(socket){
-socket.on('scoreFinal',function(data){
+  socket.on('scoreFinal',function(data){
       console.log(1);
       for(var i=1;i<5;i++){
             if(data[i]==-1) scorefin[i]=scorefin[i]*4/5;
@@ -156,6 +152,13 @@ socket.on('scoreFinal',function(data){
           }
       io.emit('scorefin',scorefin);
     });
+  socket.on('scoreSecond', function(data){
+     for(var i=1;i<8;i++){
+      score[i]+=data[i];
+    }
+    io.emit('score',score);
+    console.log('working');
+  });
 });
 http.listen(3000, function(){
   console.log('listening on *:3000');
