@@ -16,45 +16,45 @@
 			<input type="text" id="team1"></span>
 			<span id="score1">0</span>
 			<button type="button" class="btn btn-primary" id="change01">0</button>
-			<button type="button" class="btn btn-primary" id="change21">-2</button>
+			<button type="button" class="btn btn-primary" id="change21">Eliminate</button>
 			<br>
 			<span class="form-group">
 			<input type="text" id="team2"></span>
 			<span id="score2">0</span>
 			<button type="button" class="btn btn-primary" id="change02">0</button>
-			<button type="button" class="btn btn-primary" id="change22">-2</button>
+			<button type="button" class="btn btn-primary" id="change22">Eliminate</button>
 			
 			<br>
 			<span class="form-group">
 			<input type="text" id="team3"></span>
 			<span id="score3">0</span>  
 			<button type="button" class="btn btn-primary" id="change03">0</button>
-			<button type="button" class="btn btn-primary" id="change23">-2</button>
+			<button type="button" class="btn btn-primary" id="change23">Eliminate</button>
 			<br>
 			<span class="form-group">
 			<input type="text" id="team4"></span>
 			<span id="score4">0</span> 
 			<button type="button" class="btn btn-primary" id="change04">0</button>
-			<button type="button" class="btn btn-primary" id="change24">-2</button> 
+			<button type="button" class="btn btn-primary" id="change24">Eliminate</button>
 			<br>
 			<span class="form-group">
 			<input type="text" id="team5"></span>
 			<span id="score5">0</span>  
 			<button type="button" class="btn btn-primary" id="change05">0</button>
-			<button type="button" class="btn btn-primary" id="change25">-2</button>
+			<button type="button" class="btn btn-primary" id="change25">Eliminate</button>
 			
 			<br>
 			<span class="form-group">
 			<input type="text" id="team6"></span>
 			<span id="score6">0</span>  
 			<button type="button" class="btn btn-primary" id="change06">0</button>
-			<button type="button" class="btn btn-primary" id="change26">-2</button>
+			<button type="button" class="btn btn-primary" id="change26">Eliminate</button>
 			<br>
 			<span class="form-group">
 			<input type="text" id="team7"></span>
 			<span id="score7">0</span>  
 			<button type="button" class="btn btn-primary" id="change07">0</button>
-			<button type="button" class="btn btn-primary" id="change27">-2</button>
+			<button type="button" class="btn btn-primary" id="change27">Eliminate</button>
 			<br>
 			<button type="button" class="btn btn-dark" id="submit">Submit</button>
 			<br>
@@ -158,15 +158,9 @@
 							console.log(index+1);
 							var str = $(this).attr("id");
 							var i = str.substr(7);
-							//	console.log(i);
-							var tmp = $('#team'+i).val();
-							$('#team'+i).val(tmp-2);	
+							socket.emit('elim',i);
 						});
 					}
-				});
-
-				$('#elim').click(function(){
-					socket.emit('elim',1);
 				});
 					
 			});

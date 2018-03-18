@@ -3,10 +3,7 @@
 <head>
 		<link rel="stylesheet" href="./bootstrap.min.css">
 	<script src="./bootstrap.min.js"></script>
-	<script src="./odometer.min.js"></script>
-	<!-- <script src="http://github.hubspot.com/odometer/odometer.js"></script> -->
-	<link rel="stylesheet" href="./odometer-theme-minimal.css" />
-	<!-- <link rel="stylesheet" href="http://github.hubspot.com/odometer/themes/odometer-theme-car.css" /> -->
+	<script src="./countUp.js"></script>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <style>
@@ -15,88 +12,108 @@
 		}
 	</style>
 	<style>
-.odometer {
+.numScore {
     font-size: 100px;
 }
 .span-1 {
-	position : absolute; bottom : 0;left:0;
+	
 }
 .col-md {
 	padding: 0;
 	margin: 0;
+	text-align: center;
+	width: 20vh;
 }
 .container1 {
 	padding-left: 15px;
 	padding-right: 15px;
+}
+.teamName{
+	font-size: 50px;
 }
 </style>
 </head>
 <body>	<div class="container1">
 		<div class="row" style="height: 100vh;">
 			<div class="col-md" style="background: rgba(128,0,0,0.5)">
-				<img src="./emblem-t66.png" style="width: 256px;">
+				
 				<span class="span-1">
-					<div id="scoresec1" class="odometer">0</div>
+					<div id="scoresec1" class="numScore">0</div>
 				</span>
+
+				<span class="teamName team2">SCU</span>
+				<img src="./emblem-t66.png" style="width: 207px;">
 			</div>
 			<div class="col-md" style="background: rgba(0,128,0,0.7)">
-				<img src="./emblem-t68-e.png" style="width: 256px;">
+				
 				<!-- <p id="scoresec2" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
 				<span class="span-1">
-					<div id="scoresec2" class="odometer">0</div>
+					<div id="scoresec2" class="numScore">0</div>
 				</span>
+
+				<span class="teamName team2">UNEJ</span>
+				<img src="./emblem-t68-e.png" style="width: 207px;">
 			</div>
 			<div class="col-md" style="background: rgba(128,0,128,0.7)">
-				<img src="./emblem-t93.png" style="width: 256px;">
+				
 				<!-- <p id="scoresec3" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
 				<span class="span-1">
-					<div id="scoresec3" class="odometer">0</div>
+					<div id="scoresec3" class="numScore">0</div>
 				</span>
+
+				<span class="teamName team2">CGU</span>
+				<img src="./emblem-t93.png" style="width: 207px;">
 			</div>
 			<div class="col-md" style="background: rgba(128,128,0,0.7)">
-				<img src="./emblem-t66.png" style="width: 256px;">
+				
 				<!-- <p id="scoresec4" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
 				<span class="span-1">
-					<div id="scoresec4" class="odometer">0</div>
+					<div id="scoresec4" class="numScore">0</div>
 				</span>
+
+				<span class="teamName team2">KYAMC</span>
+				<img src="./emblem-t66.png" style="width: 207px;">
 			</div>	
 			<div class="col-md" style="background: rgba(50,40,120,0.7)">
-				<img src="./emblem-t68-e.png" style="width: 256px;">
+				
 				<span class="span-1">
-					<div id="scoresec5" class="odometer">0</div>
+					<div id="scoresec5" class="numScore">0</div>
 				</span>
-				<!-- <p id="scoresec5" style="font-size: 100pt; position : absolute; bottom : 0;left: 20%;">0</p> -->
+				<!-- <p id="scoresec5" style="font-size: 100pt;
+				 position : absolute; bottom : 0;left: 20%;">0</p> -->
+				<span class="teamName team2">PNU</span>
+				<img src="./emblem-t68-e.png" style="width: 207px;">
 			</div>
 		</div>
 	</div>
 	<script src="./socket.io.js"></script>
 	<script src="./jquery-3.2.1.min.js"></script>
 	<script >
-		
+		var options = {
+  useEasing: true, 
+  useGrouping: true, 
+  separator: ',', 
+  decimal: '.', 
+};
 		
 		(function(){
 			
 			var socket = io();
 
-			
+			var scoreNum=[0];
+			for(var i=1;i<6;i++){
+				scoreNum.push(new CountUp('scoresec'+i,0,0,0,1.5, options));
+			}
 			if(socket !== undefined){
 				console.log('Connected');
 			};
 			socket.on('result',function(i,data){
 				console.log('working '+data);
-				$('#scoresec'+i).text(data);
-				var x =$('#scoresec'+i).width();
-					var y =$('#scoresec'+i).parent().parent().width();
-					var position=(y-x)/2;
-					$('#scoresec'+i).css('left',position);
+				scoreNum[i].update(data);
 			});
 			socket.on('cleared2',function(data){
 				for(var i=1;i<6;i++){
-					$('#scoresec'+i).text(0);
-					var x =$('#scoresec'+i).width();
-					var y =$('#scoresec'+i).parent().parent().width();
-					var position=(y-x)/2;
-					$('#scoresec'+i).css('left',position);
+					scoreNum[i].update(0);
 				}
 			})
 		})();

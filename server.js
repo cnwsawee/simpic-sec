@@ -108,29 +108,8 @@ io.on('connection', function(socket){
       io.emit('judgefin2',i,judgefinal[i]);
    });
    socket.on('elim',function(data){
-      var min=1000,count=0;
-      for(var j=1;j<8;j++){
-        if(score[j]<min && score[j]>=0) {
-          min=score[j];
-          console.log('a',j);
-        }
-      }
-      for(var j=1;j<8;j++){
-        if(min==score[j] && score[j]>=0) count++;
-      }
-      if(count<3 && count!=0){
-        for(var j=1;j<8;j++){
-          if(min==score[j]){
-            console.log(min,score[j]);
-            score[j]=-1;
-            io.emit('eliminated',j);
-            console.log("elim");
-          }
-        }
-      }
-      io.emit('score',score);
-
-   })
+            io.emit('eliminated',data);
+   });
    socket.on('sendfin',function(data){
       console.log(1);
       for(var i=1;i<5;i++){
