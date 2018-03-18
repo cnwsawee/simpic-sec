@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<link rel="stylesheet" href="./bootstrap.min.css">
+	<script src="./bootstrap.min.js"></script>
+	<script src="./countUp.js"></script>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <style>
+		.progress-bar {
+			width: 0%;
+
+		}
+		.progress {
+			height: 10vh;
+			background-color: rgba(255,255,255,0);
+		}
+		.container1 {
+			margin: 10px;
+		}
+		.logoImg {
+			height: 70px;
+		}
+		.teamName {
+			font-size: 40px;
+		}
+		.scoreNum{
+			font-size: 40px;
+		}
+	</style>
+</head>
+<body>
+	<br>
+	<div class="container1">
+		<div class="row" id="row1">
+			<div class="col-md-8">
+				<div class="progress">
+					<div class="progress-bar " role="progress-bar" id="prog1"></div>
+				</div>
+			</div>
+			<div class="col-md-1 text-center">
+				<span id="score1" class="scoreNum align-middle">0</span>
+			</div>
+			<div class="col-md-2 text-center">
+				<span class="teamName align-middle">PNU</span>
+			</div>
+			<div class="col-md-1">
+				<img src="./emblem-t11.jpg" class="logoImg">
+			</div>
+		</div>
+		<br>
+		<div class="row" id="row2">
+			<div class="col-md-8">
+				<div class="progress">
+					<div class="progress-bar " role="progress-bar" id="prog2"></div>
+				</div>
+			</div>
+			<div class="col-md-1 text-center">
+				<span id="score2" class="scoreNum align-middle">0</span>
+			</div>
+			<div class="col-md-2 text-center">
+				<span class="teamName align-middle">CMU</span>
+			</div>
+			<div class="col-md-1">
+				<img src="./emblem-t15.png" class="logoImg">
+			</div>
+		</div>
+		<br>
+		<div class="row" id="row3">
+			<div class="col-md-8">
+				<div class="progress">
+					<div class="progress-bar " role="progress-bar" id="prog3"></div>
+				</div>
+			</div>
+			<div class="col-md-1 text-center">
+				<span id="score3" class="scoreNum align-middle">0</span>
+			</div>
+			<div class="col-md-2 text-center">
+				<span class="teamName align-middle">UNAIR</span>
+			</div>
+			<div class="col-md-1">
+				<img src="./emblem-t16.png" class="logoImg">
+			</div>
+		</div>
+		<br>
+		<div class="row" id="row4">
+			<div class="col-md-8">
+				<div class="progress">
+					<div class="progress-bar " role="progress-bar" id="prog4"></div>
+				</div>
+			</div>
+			<div class="col-md-1 text-center">
+				<span id="score4" class="scoreNum align-middle">0</span>
+			</div>
+			<div class="col-md-2 text-center">
+				<span class="teamName align-middle">DLSHSI</span>
+			</div>
+			<div class="col-md-1">
+				<img src="./emblem-t24.jpg" class="logoImg">
+			</div>
+		</div>
+		<br>
+		<div class="row" id="row5">
+			<div class="col-md-8">
+				<div class="progress">
+					<div class="progress-bar " role="progress-bar" id="prog5"></div>
+				</div>
+			</div>
+			<div class="col-md-1 text-center">
+				<span id="score5" class="scoreNum align-middle">0</span>
+			</div>
+			<div class="col-md-2 text-center">
+				<span class="teamName align-middle">CICM</span>
+			</div>
+			<div class="col-md-1">
+				<img src="./emblem-t25.jpg" class="logoImg">
+			</div>
+		</div>
+		<br>
+		<div class="row" id="row6">
+			<div class="col-md-8">
+				<div class="progress">
+					<div class="progress-bar " role="progress-bar" id="prog6"></div>
+				</div>
+			</div>
+			<div class="col-md-1 text-center">
+				<span id="score6" class="scoreNum align-middle">0</span>
+			</div>
+			<div class="col-md-2 text-center">
+				<span class="teamName align-middle">UGM</span>
+			</div>
+			<div class="col-md-1">
+				<img src="./emblem-t27.jpeg" class="logoImg">
+			</div>
+		</div>
+		<br>
+		<div class="row" id="row7">
+			<div class="col-md-8">
+				<div class="progress">
+					<div class="progress-bar " role="progress-bar" id="prog7"></div>
+				</div>
+			</div>
+			<div class="col-md-1 text-center">
+				<span id="score7" class="scoreNum align-middle">0</span>
+			</div>
+			<div class="col-md-2 text-center">
+				<span class="teamName align-middle">MFU</span>
+			</div>
+			<div class="col-md-1">
+				<img src="./emblem-t28.png" class="logoImg">
+			</div>
+		</div>
+	</div>
+	<script src="./socket.io.js"></script>
+	<script src="./jquery-3.2.1.min.js"></script>
+	<script src="./scoreboard.js"></script>
+	<script>
+		var options = {
+			useEasing: true, 
+			useGrouping: true, 
+			separator: ',', 
+			decimal: '.', 
+		};
+		var upd = function(name, val){
+			$('#'+name).css('width',val+'%').attr('aria-valuenow'+val);
+		};
+
+		(function(){
+			var score=[0];
+			for(var i=1;i<8;i++) score.push(new CountUp('score'+i,0,0,0,1.5, options));
+			var socket = io();
+			if(socket !== undefined){
+				console.log('Connected');
+			};
+
+			socket.on('score',function(data){
+				console.log('working');
+				var min=1000;
+				for(var i=1;i<8;i++){
+					score[i].update(data[i]);
+					upd('prog'+i,data[i]/3);
+					$('#score'+i).text(data[i]);
+					if(data[i]<min) min =data[i];
+				}
+				var count=0;
+				for(var i=1;i<8;i++){
+					if(data[i]==min) count++;
+				}
+				if(count<3 && count>0){
+					for(var i=1;i<8;i++){
+						if(data[i]==min) $('#prog'+i).addClass("bg-danger progress-bar-striped progress-bar-animated");
+						else $('#prog'+i).removeClass("bg-danger progress-bar-striped progress-bar-animated");
+					}
+				}
+			});
+			socket.on('cleared',function(data){
+				for(var i=1;i<8;i++){
+					score[i].update(data[i]);
+					$('#prog'+i).removeClass('bg-danger progress-bar-striped progress-bar-animated');
+					upd('prog'+i,0);
+					$("#row"+i).css("display","");
+				}
+			});
+			socket.on('eliminated',function(i){
+				console.log("elim");
+				$("#row"+i).css("display","none");
+			});
+		})();
+
+		
+	</script>
+</body>

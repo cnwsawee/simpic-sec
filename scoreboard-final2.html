@@ -63,57 +63,7 @@
 			<div class="col-md-3 col-shadow" style="background: rgb(230, 255, 196)">
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<span class="teamName team1">SCU</span>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<div class="scoreNum" id="scoreNum1">0</div>
-					</div>
-				</div>
-				<div class="row thirdRow">
-					<div class="col-md-6">
-						<span class="scoreInc" id="scoreInc1">10.00</span>
-					</div>
-					<div class="col-md-6 text-right">
-						<span class="scoreDec" id="scoreDec1">0</span>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<img src="./emblem-t66.png" style="width: 360px;">
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-shadow" style="background: rgb(170, 239, 233)">
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<span class="teamName team2">UNEJ</span>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<div class="scoreNum" id="scoreNum2">0</div>
-					</div>
-				</div>
-				<div class="row thirdRow">
-					<div class="col-md-6">
-						<span class="scoreInc" id="scoreInc2">10.00</span>
-					</div>
-					<div class="col-md-6 text-right">
-						<span class="scoreDec" id="scoreDec2">0</span>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-12">
-						<img src="./emblem-t93.png" style="width: 320px;">
-					</div>
-				</div>
-			</div>
-			<div class="col-md-3 col-shadow" style="background: rgba(216, 170, 239, 0.6)">
-				<div class="row">
-					<div class="col-md-12 text-center">
-						<span class="teamName team3">CGU</span>
+						<span class="teamName team3">UNAIR</span>
 					</div>
 				</div>
 				<div class="row">
@@ -131,6 +81,56 @@
 				</div>
 				<div class="row">
 					<div class="col-md-12">
+						<img src="./emblem-t66.png" style="width: 360px;">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 col-shadow" style="background: rgb(170, 239, 233)">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<span class="teamName team1">PNU</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<div class="scoreNum" id="scoreNum1">0</div>
+					</div>
+				</div>
+				<div class="row thirdRow">
+					<div class="col-md-6">
+						<span class="scoreInc" id="scoreInc1">10.00</span>
+					</div>
+					<div class="col-md-6 text-right">
+						<span class="scoreDec" id="scoreDec1">0</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
+						<img src="./emblem-t93.png" style="width: 320px;">
+					</div>
+				</div>
+			</div>
+			<div class="col-md-3 col-shadow" style="background: rgba(216, 170, 239, 0.6)">
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<span class="teamName team2">CMU</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12 text-center">
+						<div class="scoreNum" id="scoreNum2">0</div>
+					</div>
+				</div>
+				<div class="row thirdRow">
+					<div class="col-md-6">
+						<span class="scoreInc" id="scoreInc2">10.00</span>
+					</div>
+					<div class="col-md-6 text-right">
+						<span class="scoreDec" id="scoreDec2">0</span>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-md-12">
 						<img src="./emblem-t66.png" style="width: 320px;">
 					</div>
 				</div>
@@ -138,7 +138,7 @@
 			<div class="col-md-3 col-shadow" style="background: rgb(255, 237, 196)">
 				<div class="row">
 					<div class="col-md-12 text-center">
-						<span class="teamName team4">KYAMC</span>
+						<span class="teamName team4">DLSHSI</span>
 					</div>
 				</div>
 				<div class="row">
@@ -158,7 +158,7 @@
 					<div class="col-md-12">
 						<img src="./emblem-t93.png" style="width: 320px;">
 					</div>
-				</div>
+				</div>x
 			</div>
 		</div>
 	</div>
@@ -179,6 +179,11 @@
 				scoreInc.push(new CountUp('scoreInc'+i,0,0,2,2.5, options));
 				scoreDec.push(new CountUp('scoreDec'+i,0,0,2,2.5, options));
 			}
+			for (var i=1;i<5;i++) {
+					scoreNum[i].update(0.00);
+					scoreInc[i].update(10.00);
+					scoreDec[i].update(0.00);
+				}
 			var socket = io();		
 			if(socket !== undefined){
 				console.log('Connected');

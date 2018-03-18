@@ -46,7 +46,7 @@ var jsocket=io.of('/score');
 var score=[];
 for(var k=1;k<9;k++) score[k]=0;
 var score2=[];
-var scorefin=[];
+var scorefin=[0];
 var judgesecond=[];
 var judgefinal=[];
 for(var k=0;k<6;k++) score2[k]=0;
@@ -118,6 +118,12 @@ io.on('connection', function(socket){
           }
       io.emit('scorefin',scorefin);
     });
+   socket.on('scorefinOverride',function(data){
+      for(var i=1;i<5;i++){
+          scorefin[i]=data[i];
+      }
+      io.emit('scorefin',scorefin);
+   })
 });
 
 

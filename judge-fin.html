@@ -56,7 +56,7 @@
 	<script >
 		(function(){
 			var socket=io();
-			var jsocket=io('192.168.1.136:8080/judge');
+			var jsocket=io('192.168.1.117:8080/judge');
 			var send =[];
 			for(var i=0;i<6;i++) send[i]=0;
 			if(socket != undefined){
@@ -112,6 +112,8 @@
 			// });
 			$('#button2').click(function(){
 				socket.emit('judgefin',0);
+
+				jsocket.emit('judgeMnt', {t1: 0, t2: 0, t3: 0, t4: 0, t5: 0, t6: 0, t7: 0});
 			});
 
 		})();
