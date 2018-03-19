@@ -9,6 +9,9 @@ app.get('/scoreboard', function(req, res){
 app.get('/scoreboard2', function(req, res){
   res.sendFile(__dirname + '/scoreboard2.html');
 });
+app.get('/scoreboard3', function(req, res){
+  res.sendFile(__dirname + '/scoreboard3.html');
+});
 app.get('/console', function(req, res){
   res.sendFile(__dirname + '/console.html');
 });
